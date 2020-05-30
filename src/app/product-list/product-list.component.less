@@ -1,0 +1,23 @@
+.product-list {
+  max-height: 4720px;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.page-link {
+  border-bottom: 0;
+}
+
+.page-item {
+  &:last-child {
+    .page-link {
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &:first-child {
+    .page-link {
+      border-bottom-left-radius: 0;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<div class="btn-group" mdbDropdown>
+  <button
+    class="dropdown-toggle waves-light catalog-dropdown"
+    type="button"
+    color="primary"
+    mdbDropdownToggle
+    mdbBtn
+    mdbWavesEffect>
+    Каталог
+  </button>
+
+  <div class="dropdown-menu dropdown-primary">
+    <button class="dropdown-item" (click)="goTo(CATALOG.cpu)">
+      Процессоры
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.gpu)">
+      Видеокарты
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.motherboard)">
+      Материнские платы
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.ram)">
+      Оперативная память
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.coolerSystem)">
+      Системы охлаждения
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.ssd)">
+      SSD
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.hdd)">
+      Жесткие диски
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.case)">
+      Корпуса
+    </button>
+    <button class="dropdown-item" (click)="goTo(CATALOG.block)">
+      Блоки питания
+    </button>
+  </div>
+</div>

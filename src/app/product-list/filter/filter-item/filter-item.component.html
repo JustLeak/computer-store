@@ -1,0 +1,39 @@
+<div *ngIf="filterItem?.type === FILTER_TYPE.select" class="d-flex-column">
+  <span class="font-weight-bold font-small">{{ filterItem.name }}:</span>
+  <div *ngFor="let option of filterItem.options">
+    <mdb-checkbox
+      class="font-small"
+      [checked]="option.selected"
+      [default]="true"
+      >{{ option.value }}</mdb-checkbox
+    >
+  </div>
+</div>
+
+<div *ngIf="filterItem?.type === FILTER_TYPE.range">
+  <span class="font-weight-bold font-small">{{ filterItem.name }}:</span>
+  <div class="d-flex-row">
+    <input
+      mdbInput
+      type="text"
+      class="form-control form-control-sm no-br-r"
+      placeholder="{{ filterItem.range.min }}"
+    />
+    <input
+      mdbInput
+      type="text"
+      class="form-control form-control-sm no-br-l"
+      placeholder="{{ filterItem.range.max }}"
+    />
+  </div>
+</div>
+
+<div *ngIf="filterItem?.type === FILTER_TYPE.checkbox" class="checkbox-filter">
+  <mdb-checkbox
+    class="font-weight-bold font-small"
+    [checked]="filterItem.selected"
+    [default]="false"
+  >
+    {{ filterItem.name }}
+  </mdb-checkbox>
+</div>

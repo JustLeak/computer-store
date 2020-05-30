@@ -1,0 +1,50 @@
+[
+  {
+    "filterKey": "price",
+    "name": "Цена, р"
+  },
+  {
+    "filterKey": "releaseDate",
+    "name": "Дата выхода, год"
+  },
+  {
+    "filterKey": "producer",
+    "name": "Производитель"
+  },
+  {
+    "filterKey": "lineup",
+    "name": "Модельный ряд"
+  },
+  {
+    "filterKey": "socket",
+    "name": "Сокет"
+  },
+  {
+    "filterKey": "coreCount",
+    "name": "Количествоя ядер"
+  },
+  {
+    "filterKey": "threadCount",
+    "name": "Количествоя потоков"
+  },
+  {
+    "filterKey": "baseClock",
+    "name": "Базовая тактовая частота, ГГц"
+  },
+  {
+    "filterKey": "maxClock",
+    "name": "Максимальная тактовая частота, ГГц"
+  },
+  {
+    "filterKey": "TDP",
+    "name": "Тепловыделение (TDP), Вт"
+  },
+  {
+    "filterKey": "type",
+    "name": "Тип поставки"
+  },
+  {
+    "filterKey": "techProcess",
+    "name": "Техпроцесс, нм"
+  }
+]
