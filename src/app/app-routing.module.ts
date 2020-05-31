@@ -8,12 +8,12 @@ import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
   { path: AppRoutes.home, component: HomePageComponent },
+  { path: AppRoutes.cart, component: ShoppingCartComponent },
   { path: ':type', component: ProductListComponent },
   {
     path: ':type' + '/:key',
     component: ProductPageComponent
-  },
-  { path: AppRoutes.cart, component: ShoppingCartComponent }
+  }
 ];
 
 @NgModule({

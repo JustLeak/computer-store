@@ -1,36 +1,78 @@
-<div class="product-card border-left border-right mt-3">
-  <mdb-carousel [animation]="'slide'" [allowSwipe]="true" [interval]="99999">
-    <mdb-carousel-item>
-      <img
-        class="d-block w-100"
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg"
-        alt="First slide"
-      />
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <img
-        class="d-block w-100"
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg"
-        alt="Second slide"
-      />
-    </mdb-carousel-item>
-    <mdb-carousel-item>
-      <img
-        class="d-block w-100"
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
-        alt="Third slide"
-      />
-    </mdb-carousel-item>
-  </mdb-carousel>
-  <table mdbTable>
-    <tbody>
-      <tr class="grey lighten-2 border-bottom">
-        <td class="text-dark font-weight-bold spec-section-header" colspan="2">Основные</td>
-      </tr>
-      <tr mdbTableCol>
-        <td>Набор</td>
-        <td>2</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="product-card border-left border-right flex-column">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 d-flex-column border-right pt-5 pb-2">
+        <div class="font-weight-lighter product-name">
+          {{ postfix | productType }}
+        </div>
+        <div class="font-weight-bold product-name border-bottom">
+          {{ product?.name }}
+        </div>
+        <div>
+          <ng-template #t let-fill="fill">
+            <span class="star" [class.full]="fill === 100">
+              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+            </span>
+          </ng-template>
+          <ngb-rating
+            [(rate)]="currentRate"
+            [readonly]="true"
+            max="5"
+            [starTemplate]="t"
+          ></ngb-rating>
+        </div>
+        <div
+          [ngClass]="{
+            'green-text': product?.count > 0,
+            'red-text': product?.count === 0
+          }"
+          class="product-name mt-auto"
+        >
+          {{product?.count > 0 ? 'Есть на скалде' : 'Нет на складе'}}
+        </div>
+        <div class="mt-auto d-flex-row pt-2 border-top">
+          <div class="price font-weight-bold my-auto">
+            {{ product?.price }} р.
+          </div>
+          <div class="ml-auto btn-group">
+            <button
+              mdbBtn
+              [disabled]="product?.count === 0"
+              color="deep-orange"
+              type="button"
+              mdbWavesEffect
+              class="btn-sm"
+            >
+              В корзину
+              <mdb-icon fas icon="shopping-cart"></mdb-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mx-auto py-2">
+        <div
+          *ngIf="isLoading"
+          class="product-img d-flex justify-content-center mx-auto"
+        >
+          <div class="spinner-border m-auto" role="status">
+            <span class="sr-only">Загрузка...</span>
+          </div>
+        </div>
+        <div *ngIf="!isLoading && imageUrls.length > 0" class="product-img">
+          <mdb-carousel [allowSwipe]="true" [interval]="99999">
+            <mdb-carousel-item
+              *ngFor="let img of imageUrls"
+              class="carousel-item"
+            >
+              <img class="d-block w-100" [src]="img" alt="Photo" />
+            </mdb-carousel-item>
+          </mdb-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="font-weight-bold desc-section-name pl-2 pb-2 pt-4 border-top">
+    Описание
+  </div>
+  <app-specs-table [table]="table"></app-specs-table>
 </div>

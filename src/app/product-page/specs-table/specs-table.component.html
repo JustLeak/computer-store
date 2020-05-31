@@ -1,0 +1,31 @@
+<table mdbTable>
+  <tbody *ngFor="let section of table">
+    <tr class="grey lighten-2 border-bottom">
+      <td class="text-dark font-weight-bold" colspan="2">
+        {{ section.name }}
+      </td>
+    </tr>
+    <tr *ngFor="let row of section.rows" mdbTableCol>
+      <td>{{ row.name }}</td>
+      <td *ngIf="!row.isBoolean">
+        {{ row.value }}<span *ngIf="row.postfix"> {{ row.postfix }}</span>
+      </td>
+      <td *ngIf="row.isBoolean">
+        <mdb-icon
+          *ngIf="row.value"
+          fas
+          icon="check"
+          class="green-text pr-3"
+          aria-hidden="true"
+        ></mdb-icon>
+        <mdb-icon
+          *ngIf="!row.value"
+          fas
+          icon="times"
+          class="grey-text pr-3"
+          aria-hidden="true"
+        ></mdb-icon>
+      </td>
+    </tr>
+  </tbody>
+</table>

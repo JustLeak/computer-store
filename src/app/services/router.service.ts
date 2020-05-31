@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {Observable} from 'rxjs';
 
 export enum AppRoutes {
   home = '',
@@ -21,9 +22,11 @@ export enum AppRoutes {
   providedIn: 'root'
 })
 export class RouterService {
-  constructor(
-    private router: Router
-  ) {}
+  public params: Observable<any>;
+
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.params = this.route.params;
+  }
 
   public getPostfix() {
     return this.router.url.split('/')[1];

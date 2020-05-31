@@ -1,5 +1,5 @@
 <mdb-navbar
-  SideClass="navbar navbar-expand-lg navbar-light blue-grey lighten-5"
+  SideClass="navbar navbar-expand-lg navbar-light blue-grey lighten-5 pr-0"
   [containerInside]="false"
 >
   <mdb-navbar-brand>
@@ -11,7 +11,7 @@
   <links>
     <ul class="navbar-nav ml-auto">
       <ng-container *ngIf="(authService.user | async)?.emailVerified">
-        <li class="nav-item">
+        <li class="nav-item border-right">
           <a
             type="button"
             class="nav-link waves-dark"
@@ -19,38 +19,39 @@
             (click)="onProfileClick()"
             mdbWavesEffect
           >
-            <mdb-icon fas icon="user"></mdb-icon>
+            <mdb-icon fas icon="user" size="lg"></mdb-icon>
             <span>Привет, {{ username }}!</span>
           </a>
         </li>
-        <div class="separator"></div>
-        <li class="nav-item cart-link">
+        <li class="nav-item cart-link border-right">
           <a
             class="nav-link waves-dark"
             type="button"
             (click)="
-              shoppingCartService.itemsCount ? onShoppingCartClick() : null
+              ordersCount ? onShoppingCartClick() : null
             "
-            [attr.mdbWavesEffect]="!!shoppingCartService.itemsCount"
+            [attr.mdbWavesEffect]="!!ordersCount"
             placement="bottom"
             triggers="mouseenter:mouseleave"
             [openDelay]="150"
             [closeDelay]="50"
-            [disablePopover]="!!shoppingCartService.itemsCount"
+            [disablePopover]="!!ordersCount"
             ngbPopover="Выберите товары из предложенных в каталоге"
             popoverTitle="Ваша корзина пуста"
           >
-            <mdb-icon fas icon="shopping-cart"></mdb-icon>
+            <mdb-icon fas icon="shopping-cart" size="lg"></mdb-icon>
           </a>
           <div
-            *ngIf="shoppingCartService.itemsCount"
-            class="cart-items-counter text-dark"
+            *ngIf="ordersCount"
+            class="cart-items-counter deep-orange text-dark"
           >
-            {{ shoppingCartService.itemsCount }}
+            {{ ordersCount }}
           </div>
         </li>
-        <div class="separator"></div>
-        <li class="nav-item">
+        <li>
+          <app-work-time></app-work-time>
+        </li>
+        <li class="nav-item border-left">
           <a
             class="nav-link waves-dark"
             type="button"
@@ -58,22 +59,27 @@
             (click)="onSignOutClick()"
             mdbWavesEffect
           >
-            <mdb-icon fas icon="sign-out-alt"></mdb-icon>
+            <mdb-icon fas icon="sign-out-alt" size="lg"></mdb-icon>
           </a>
         </li>
       </ng-container>
-      <li *ngIf="!(authService.user | async)?.emailVerified" class="nav-item">
-        <a
-          class="nav-link waves-dark"
-          type="button"
-          title="Войти"
-          (click)="openAuthModal()"
-          mdbWavesEffect
-        >
-          <mdb-icon far icon="user"></mdb-icon>
-          <span>Войти</span>
-        </a>
-      </li>
+      <ng-container *ngIf="!(authService.user | async)?.emailVerified">
+        <li>
+          <app-work-time></app-work-time>
+        </li>
+        <li class="nav-item margin-left">
+          <a
+            class="nav-link waves-dark"
+            type="button"
+            title="Войти"
+            (click)="openAuthModal()"
+            mdbWavesEffect
+          >
+            <mdb-icon far icon="user" size="lg"></mdb-icon>
+            <span>Войти</span>
+          </a>
+        </li>
+      </ng-container>
     </ul>
   </links>
 </mdb-navbar>

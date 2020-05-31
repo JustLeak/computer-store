@@ -27,12 +27,13 @@ export class FilterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.currentFilters = this.filterConfig[this.RouterService.getPostfix()];
-    this.ensureFilters();
+    this.currentFilterConfig = [];
+    if (this.filterData && this.filterData.length) {
+      this.ensureFilters();
+    }
   }
 
   private ensureFilters() {
-    this.currentFilterConfig = [];
-
     forEach(this.currentFilters, (filter) => {
       let newFilter = this.createFilter(filter);
 

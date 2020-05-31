@@ -27,6 +27,13 @@ import { CpuCardContentComponent } from './product-list/product-card/cpu-card-co
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { SpecsTableComponent } from './product-page/specs-table/specs-table.component';
+import { ProductNamePipe } from './pipes/product-name.pipe';
+import { ProductTypePipe } from './pipes/product-type.pipe';
+import { WorkTimeComponent } from './header/components/work-time/work-time.component';
+import { CartListComponent } from './shopping-cart/cart-list/cart-list.component';
+import { CartItemComponent } from './shopping-cart/cart-list/cart-item/cart-item.component';
+import { OrderRegistrationComponent } from './shopping-cart/order-registration/order-registration.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +54,14 @@ import { ProductPageComponent } from './product-page/product-page.component';
     NavbarComponent,
     CpuCardContentComponent,
     ShoppingCartComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    SpecsTableComponent,
+    ProductNamePipe,
+    ProductTypePipe,
+    WorkTimeComponent,
+    CartListComponent,
+    CartItemComponent,
+    OrderRegistrationComponent
   ],
   imports: [
     AppRoutingModule,

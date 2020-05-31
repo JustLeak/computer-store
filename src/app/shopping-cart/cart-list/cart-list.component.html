@@ -1,0 +1,8 @@
+<div class="order-list d-flex-column">
+  <app-cart-item
+    *ngFor="let order of orders; let first = first"
+    [order]="order"
+    class="border-bottom mx-3"
+    [ngClass]="{ 'border-top': first }"
+  ></app-cart-item>
+</div>

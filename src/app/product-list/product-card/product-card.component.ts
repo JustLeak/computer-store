@@ -39,16 +39,12 @@ export class ProductCardComponent implements OnInit, OnDestroy {
   public imageUrls: string[] = [];
   public postfix: string;
   public imagesSubscription: Subscription;
-  public currentRate: number = 3.5;
 
   public catalog: any = CATALOG;
   constructor(
     public routerService: RouterService,
     private afStorage: AngularFireStorage,
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private productService: ProductService,
-    private route: ActivatedRoute
+    private cdr: ChangeDetectorRef
   ) {
     this.postfix = routerService.getPostfix();
   }

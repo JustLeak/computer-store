@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MDBModalRef, MDBModalService } from 'angular-bootstrap-md';
 import { AuthService } from '../../../services/auth.service';
 import { AuthModalComponent } from '../../../auth-modal/auth-modal.component';
-import {Router} from '@angular/router';
-import {AppRoutes} from '../../../services/router.service';
-import {ShoppingCartService} from '../../../services/shopping-cart.service';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../../../services/router.service';
+import { ShoppingCartService } from '../../../services/shopping-cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.less']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   public username = 'Евгений';
-
+  public userSubscription: Subscription;
+  public userCardSubscription: Subscription;
+  public ordersCount: number = 0;
   private authModalRef: MDBModalRef;
 
   constructor(
@@ -23,7 +26,19 @@ export class NavbarComponent implements OnInit {
     public shoppingCartService: ShoppingCartService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      if (user) {
+        this.userCardSubscription = this.shoppingCartService
+          .getUserCard(user.uid)
+          .subscribe((userCard) => {
+            this.ordersCount = userCard.length;
+          });
+      } else {
+        this.ordersCount = 0;
+      }
+    });
+  }
 
   public onProfileClick() {
     console.log('profile');
@@ -41,5 +56,10 @@ export class NavbarComponent implements OnInit {
 
   public onShoppingCartClick() {
     this.router.navigateByUrl(AppRoutes.cart);
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.userCardSubscription.unsubscribe();
   }
 }
