@@ -28,7 +28,7 @@
       type="number"
       min="1"
       [max]="product?.count"
-      [(ngModel)]="order.count"
+      [formControl]="orderCount"
       class="form-control count-input"
       mdbInput
     />

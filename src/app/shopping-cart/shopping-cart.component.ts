@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit
@@ -8,6 +9,9 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import {DataSnapshot} from '@angular/fire/database/interfaces';
+import { forEach } from 'lodash';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -21,7 +25,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   public orders: any = [];
 
   constructor(
-    private shoppingCartService: ShoppingCartService,
+    public shoppingCartService: ShoppingCartService,
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef
@@ -30,10 +34,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       if (!user) {
         this.router.navigateByUrl('');
       } else {
-        this.userCardSubscription = this.shoppingCartService.getUserCard(user.uid).subscribe((userCard) => {
-          this.orders = userCard;
-          this.cdr.detectChanges();
-        });
+        this.userCardSubscription = this.shoppingCartService
+          .getUserCard(user.uid)
+          .pipe(take(1))
+          .subscribe((userCard) => {
+            this.orders = this.convertToList(userCard);
+            this.cdr.detectChanges();
+          });
       }
     });
   }
@@ -45,5 +52,18 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     if (this.userCardSubscription) {
       this.userCardSubscription.unsubscribe();
     }
+  }
+
+  private convertToList(userCard: any) {
+    let result = [];
+
+    if (userCard) {
+      forEach(
+        Object.keys(userCard),
+        (key) => (result[result.push(userCard[key]) - 1].$key = key)
+      );
+    }
+
+    return result;
   }
 }

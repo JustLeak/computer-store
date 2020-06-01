@@ -21,6 +21,7 @@ export interface User {
 })
 export class AuthService {
   public user: Observable<firebase.User | null> = new Observable<firebase.User | null>();
+  public uid: string;
 
   constructor(
     private angularFireAuth: AngularFireAuth,
@@ -28,6 +29,9 @@ export class AuthService {
     private db: AngularFireDatabase
   ) {
     this.user = angularFireAuth.user;
+    this.user.subscribe((user) => {
+      this.uid = user.uid;
+    })
   }
 
   setUserData(user) {
