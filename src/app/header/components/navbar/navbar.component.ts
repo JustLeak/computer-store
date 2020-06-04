@@ -17,25 +17,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public userSubscription: Subscription;
   public userCardSubscription: Subscription;
   public ordersCount: number = 0;
-  private authModalRef: MDBModalRef;
 
   constructor(
     public authService: AuthService,
     private modalService: MDBModalService,
     private router: Router,
-    public shoppingCartService: ShoppingCartService
+    public shoppingCartService: ShoppingCartService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user.subscribe((user) => {
-      if (user) {
+      if (user && user.emailVerified) {
         this.userCardSubscription = this.shoppingCartService
           .getUserCard(user.uid)
           .subscribe((userCard) => {
             this.ordersCount = userCard.length;
+            this.cdr.detectChanges();
           });
       } else {
         this.ordersCount = 0;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -49,7 +51,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   public openAuthModal() {
-    this.authModalRef = this.modalService.show(AuthModalComponent, {
+    this.modalService.show(AuthModalComponent, {
       ignoreBackdropClick: true
     });
   }

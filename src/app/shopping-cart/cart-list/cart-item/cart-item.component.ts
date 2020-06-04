@@ -5,7 +5,6 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   SimpleChanges
 } from '@angular/core';
 import { isNumber } from 'lodash';
@@ -23,7 +22,7 @@ import { ShoppingCartService } from '../../../services/shopping-cart.service';
   styleUrls: ['./cart-item.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CartItemComponent implements OnInit, OnChanges, OnDestroy {
+export class CartItemComponent implements OnChanges, OnDestroy {
   @Input() order: any;
   public product: any;
   public imageUrl: string;
@@ -41,8 +40,6 @@ export class CartItemComponent implements OnInit, OnChanges, OnDestroy {
   ) {
     this.orderCount = new FormControl(1);
   }
-
-  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.order) {
@@ -93,6 +90,18 @@ export class CartItemComponent implements OnInit, OnChanges, OnDestroy {
           this.orderRef.set(this.orderCount.value);
         });
     }
+  }
+
+  public onCartItemDelete() {
+    this.db.database
+      .ref(`users/${this.authService.uid}/orders/${this.order.$key}`)
+      .remove()
+      .then(() => {
+        this.shoppingCartService.priceChangeSubject.next({
+          key: this.order.key,
+          value: 0
+        });
+      });
   }
 
   ngOnDestroy(): void {

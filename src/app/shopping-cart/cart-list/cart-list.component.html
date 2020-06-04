@@ -1,6 +1,6 @@
 <div class="order-list d-flex-column">
   <app-cart-item
-    *ngFor="let order of orders; let first = first"
+    *ngFor="let order of orders; let first = first; trackBy: trackByFn"
     [order]="order"
     class="border-bottom mx-3"
     [ngClass]="{ 'border-top': first }"

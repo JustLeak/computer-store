@@ -31,14 +31,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {
     this.authSubscription = this.authService.user.subscribe((user) => {
-      if (!user) {
+      if (!user || !user.emailVerified) {
         this.router.navigateByUrl('');
       } else {
         this.userCardSubscription = this.shoppingCartService
           .getUserCard(user.uid)
-          .pipe(take(1))
           .subscribe((userCard) => {
-            this.orders = this.convertToList(userCard);
+            this.orders = userCard;
             this.cdr.detectChanges();
           });
       }
@@ -52,18 +51,5 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     if (this.userCardSubscription) {
       this.userCardSubscription.unsubscribe();
     }
-  }
-
-  private convertToList(userCard: any) {
-    let result = [];
-
-    if (userCard) {
-      forEach(
-        Object.keys(userCard),
-        (key) => (result[result.push(userCard[key]) - 1].$key = key)
-      );
-    }
-
-    return result;
   }
 }

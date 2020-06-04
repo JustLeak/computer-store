@@ -13,4 +13,8 @@ export class CartListComponent implements OnInit {
   constructor(public shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {}
+
+  public trackByFn(index: number, item: any) {
+    return item.$key;
+  }
 }

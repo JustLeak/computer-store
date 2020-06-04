@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
   ChangeDetectorRef
@@ -12,6 +11,8 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { RouterService } from '../services/router.service';
 import { DataSnapshot } from '@angular/fire/database/interfaces';
 import { forEach } from 'lodash';
+import { MDBModalService } from 'angular-bootstrap-md';
+import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-product-list',
@@ -19,7 +20,7 @@ import { forEach } from 'lodash';
   styleUrls: ['./product-list.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnDestroy {
   public products: any = [];
   public catalogSubscription: Subscription;
 
@@ -27,6 +28,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private db: AngularFireDatabase,
     private catalogService: CatalogService,
     private routerService: RouterService,
+    private modalService: MDBModalService,
     private cdr: ChangeDetectorRef
   ) {
     this.db.database
@@ -49,7 +51,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {
+  public openAuthModal() {
+    this.modalService.show(AuthModalComponent, {
+      ignoreBackdropClick: true
+    });
   }
 
   ngOnDestroy(): void {

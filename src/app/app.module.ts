@@ -34,6 +34,7 @@ import { WorkTimeComponent } from './header/components/work-time/work-time.compo
 import { CartListComponent } from './shopping-cart/cart-list/cart-list.component';
 import { CartItemComponent } from './shopping-cart/cart-list/cart-item/cart-item.component';
 import { OrderRegistrationComponent } from './shopping-cart/order-registration/order-registration.component';
+import { PricePipe } from './pipes/price.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { OrderRegistrationComponent } from './shopping-cart/order-registration/o
     WorkTimeComponent,
     CartListComponent,
     CartItemComponent,
-    OrderRegistrationComponent
+    OrderRegistrationComponent,
+    PricePipe
   ],
   imports: [
     AppRoutingModule,

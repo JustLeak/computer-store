@@ -10,7 +10,7 @@
   <div
     *ngIf="imageUrls[0]"
     [routerLink]="[product.$key]"
-    class="product-img view rgba-white-slight waves-light my-3 mx-auto"
+    class="product-img view rgba-white-slight waves-light my-3 mx-auto img-link"
     mdbWavesEffect
   >
     <mdb-card-img
@@ -42,19 +42,25 @@
         <button
           [disabled]="product?.count === 0"
           mdbBtn
-          color="deep-orange"
+          [color]="cartKey ? 'green' : 'deep-orange'"
+          (click)="onCartAction()"
           type="button"
           mdbWavesEffect
           class="btn-sm"
         >
-          В корзину
+          {{ cartKey ? 'Уже в корзине' : 'В корзину' }}
           <mdb-icon fas icon="shopping-cart"></mdb-icon>
         </button>
       </div>
-      <small *ngIf="product?.count > 0" class="text-uppercase font-weight-normal"
-        ><span class="green-text">На складе:</span> {{ product?.count }} шт.</small
+      <small
+        *ngIf="product?.count > 0"
+        class="text-uppercase font-weight-normal"
+        ><span class="green-text">На складе:</span>
+        {{ product?.count }} шт.</small
       >
-      <small *ngIf="product?.count === 0" class="text-uppercase font-weight-normal red-text"
+      <small
+        *ngIf="product?.count === 0"
+        class="text-uppercase font-weight-normal red-text"
         >Нет на складе</small
       >
     </div>
