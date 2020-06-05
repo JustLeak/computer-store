@@ -96,6 +96,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     if (!this.isAuthorized) {
       this.needAuth.emit();
     } else if (!this.cartKey) {
+      console.log(this.authService.uid);
       this.db.database.ref(`users/${this.authService.uid}/orders`).push({
         count: 1,
         key: this.product.$key,

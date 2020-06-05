@@ -1,1 +1,56 @@
-<div class="confirm-order-form py-2 px-3 grey lighten-3">order-registration works!</div>
+<div class="confirm-order-form py-4 px-4 grey lighten-3">
+  <form>
+    <p class="h4 mb-4">Оформление заказа</p>
+    <input type="text" id="name" class="form-control mb-4" placeholder="Имя*" />
+    <input
+      type="text"
+      id="number"
+      class="form-control mb-4"
+      placeholder="+375 __ ______*"
+    />
+    <input
+      type="email"
+      id="email"
+      class="form-control mb-4"
+      placeholder="E-mail*"
+    />
+    <input
+      type="text"
+      id="adress"
+      class="form-control mb-4"
+      placeholder="Адрес"
+    />
+    <div>Способ оплаты:</div>
+    <select class="browser-default custom-select mb-4">
+      <option value="1">Наличными</option>
+      <option value="2">По карте</option>
+      <option value="2">Рассрочка</option>
+      <option value="2">Халва</option>
+    </select>
+    <div class="form-group">
+      <textarea
+        class="form-control rounded-0"
+        id="comment"
+        rows="3"
+        placeholder="Комментарий к заказу"
+      ></textarea>
+    </div>
+
+    <div class="my-3 pb-3 border-bottom">
+      <mdb-checkbox [default]="true">Запомнить данные</mdb-checkbox>
+    </div>
+
+    <div class="mt-3 pb-3 d-flex-row font-weight-normal">
+      <div>Товаров: {{ orders.length }}</div>
+      <div class="ml-auto d-flex-column">
+        <span>На сумму: </span>
+        <span class="price total-price">{{
+          shoppingCartService.totalPrice | async | price
+        }}</span>
+      </div>
+    </div>
+    <button mdbBtn color="green" block="true" type="submit" [disabled]="!orders.length">
+      Оформить заказ
+    </button>
+  </form>
+</div>

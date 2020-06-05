@@ -7,10 +7,9 @@
   <div class="row cart-content">
     <div class="col-md-5 mt-4">
       <app-cart-list [orders]="orders"></app-cart-list>
-      {{ shoppingCartService.totalPrice | async }}
     </div>
     <div class="col-md-7 mt-4 pl-0">
-      <app-order-registration></app-order-registration>
+      <app-order-registration [orders]="orders"></app-order-registration>
     </div>
   </div>
 </div>

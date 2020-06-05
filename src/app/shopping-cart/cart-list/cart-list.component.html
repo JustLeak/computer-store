@@ -1,4 +1,8 @@
-<div class="order-list d-flex-column">
+<div class="d-flex-column modal-dialog-scrollable">
+  <div *ngIf="orders && !orders.length"
+  class="font-weight-normal">
+    Ваша корзина пуста.
+  </div>
   <app-cart-item
     *ngFor="let order of orders; let first = first; trackBy: trackByFn"
     [order]="order"

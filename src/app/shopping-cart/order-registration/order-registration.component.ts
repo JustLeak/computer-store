@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ShoppingCartService} from '../../services/shopping-cart.service';
 
 @Component({
   selector: 'app-order-registration',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-registration.component.less']
 })
 export class OrderRegistrationComponent implements OnInit {
+  @Input() orders: any[];
 
-  constructor() { }
+  constructor(public shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
   }

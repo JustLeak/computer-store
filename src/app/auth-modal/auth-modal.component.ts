@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MDBModalRef } from 'angular-bootstrap-md';
-import UserCredential = firebase.auth.UserCredential;
 
 interface IAlert {
   type: ALERT_TYPES;
