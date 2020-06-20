@@ -1,38 +1,62 @@
 <div class="confirm-order-form py-4 px-4 grey lighten-3">
   <form>
     <p class="h4 mb-4">Оформление заказа</p>
-    <input type="text" id="name" class="form-control mb-4" placeholder="Имя*" />
     <input
       type="text"
+      id="name"
+      class="form-control mb-4"
+      placeholder="Имя*"
+      [formControl]="name"
+      mdbInput
+      mdbValidate
+    />
+    <input
+      type="number"
+      [formControl]="phone"
       id="number"
       class="form-control mb-4"
       placeholder="+375 __ ______*"
+      mdbInput
+      mdbValidate
     />
     <input
       type="email"
       id="email"
+      [formControl]="email"
       class="form-control mb-4"
-      placeholder="E-mail*"
+      placeholder="E-mail"
+      mdbInput
+      mdbValidate
     />
     <input
       type="text"
-      id="adress"
+      id="address"
+      [formControl]="address"
       class="form-control mb-4"
-      placeholder="Адрес"
+      placeholder="Адрес*"
+      mdbInput
+      mdbValidate
     />
     <div>Способ оплаты:</div>
-    <select class="browser-default custom-select mb-4">
+    <select
+      class="browser-default custom-select mb-4"
+      [formControl]="payMethod"
+      mdbInput
+      mdbValidate
+    >
       <option value="1">Наличными</option>
       <option value="2">По карте</option>
-      <option value="2">Рассрочка</option>
-      <option value="2">Халва</option>
+      <option value="3">Рассрочка</option>
     </select>
     <div class="form-group">
       <textarea
         class="form-control rounded-0"
+        [formControl]="comment"
         id="comment"
         rows="3"
         placeholder="Комментарий к заказу"
+        mdbInput
+        mdbValidate
       ></textarea>
     </div>
 
@@ -49,8 +73,21 @@
         }}</span>
       </div>
     </div>
-    <button mdbBtn color="green" block="true" type="submit" [disabled]="!orders.length">
-      Оформить заказ
+    <button
+      mdbBtn
+      [color]="orderConfirmed ? 'deep-orange' : 'green'"
+      block="true"
+      type="submit"
+      mdbWavesEffect
+      [disabled]="!orders.length || !validatingForm.valid || orderConfirmed"
+      (click)="onOrder()"
+    >
+      <span *ngIf="isLoading" class="spinner-border text-white" role="status">
+        <span class="sr-only">Загрузка...</span>
+      </span>
+      <span *ngIf="!isLoading">
+        {{ orderConfirmed ? 'Заказ оформлен!' : 'Оформить заказ' }}
+      </span>
     </button>
   </form>
 </div>

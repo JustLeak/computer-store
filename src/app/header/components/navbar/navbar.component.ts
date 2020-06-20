@@ -42,10 +42,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onProfileClick() {
-    console.log('profile');
-  }
-
   public onSignOutClick() {
     this.authService.signOut();
   }

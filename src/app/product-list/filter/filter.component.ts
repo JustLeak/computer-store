@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -8,6 +9,7 @@ import {
 import { RouterService } from '../../services/router.service';
 import filterConfig from './filter.config';
 import { forEach } from 'lodash';
+import { FILTER_TYPE } from './filter-item/filter-item.component';
 
 @Component({
   selector: 'app-filter',
@@ -21,7 +23,10 @@ export class FilterComponent implements OnInit, OnChanges {
   public currentFilters: any[];
   public currentFilterConfig: any[];
 
-  constructor(private RouterService: RouterService) {}
+  constructor(
+    private RouterService: RouterService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {}
 
@@ -78,7 +83,9 @@ export class FilterComponent implements OnInit, OnChanges {
   private getRangeByFilterKey(key: string): any {
     let range = {
       min: 0,
-      max: 0
+      max: 0,
+      minValue: '',
+      maxValue: ''
     };
 
     range.min = this.filterData[0][key];
@@ -102,5 +109,28 @@ export class FilterComponent implements OnInit, OnChanges {
     );
 
     return Array.from(options.values());
+  }
+
+  public filter(): void {
+    this.filterData.forEach((product) => {
+      product.isShown = true;
+      this.currentFilterConfig.forEach((filter) => {
+        if (product.isShown) {
+          if (filter.type === FILTER_TYPE.range) {
+            if (filter.range.maxValue) {
+              product.isShown =
+                product[filter.filterKey] <= filter.range.maxValue;
+            }
+            if (filter.range.minValue) {
+              product.isShown =
+                product[filter.filterKey] >= filter.range.minValue;
+            }
+            if (!product.isShown) {
+              this.cdr.detectChanges();
+            }
+          }
+        }
+      });
+    });
   }
 }

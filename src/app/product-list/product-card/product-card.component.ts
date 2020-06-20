@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { keys } from 'lodash';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 export interface IProductDescription {
   name: string;
@@ -96,7 +96,6 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     if (!this.isAuthorized) {
       this.needAuth.emit();
     } else if (!this.cartKey) {
-      console.log(this.authService.uid);
       this.db.database.ref(`users/${this.authService.uid}/orders`).push({
         count: 1,
         key: this.product.$key,

@@ -11,12 +11,8 @@ export enum FILTER_TYPE {
   templateUrl: './filter-item.component.html',
   styleUrls: ['./filter-item.component.less']
 })
-export class FilterItemComponent implements OnInit {
+export class FilterItemComponent {
   @Input() filterItem: any;
 
   public FILTER_TYPE: any = FILTER_TYPE;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -19,7 +19,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { DropdownMenuComponent } from './header/components/dropdown-menu/dropdown-menu.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LockWrapperComponent } from './lock-wrapper/lock-wrapper.component';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NavbarComponent } from './header/components/navbar/navbar.component';
@@ -28,7 +27,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { SpecsTableComponent } from './product-page/specs-table/specs-table.component';
-import { ProductNamePipe } from './pipes/product-name.pipe';
 import { ProductTypePipe } from './pipes/product-type.pipe';
 import { WorkTimeComponent } from './header/components/work-time/work-time.component';
 import { CartListComponent } from './shopping-cart/cart-list/cart-list.component';
@@ -51,13 +49,11 @@ import { PricePipe } from './pipes/price.pipe';
     AuthModalComponent,
     DropdownMenuComponent,
     HomePageComponent,
-    LockWrapperComponent,
     NavbarComponent,
     CpuCardContentComponent,
     ShoppingCartComponent,
     ProductPageComponent,
     SpecsTableComponent,
-    ProductNamePipe,
     ProductTypePipe,
     WorkTimeComponent,
     CartListComponent,

@@ -2,3 +2,13 @@
   *ngFor="let filter of currentFilterConfig"
   [filterItem]="filter"
 ></app-filter-item>
+
+<button
+  mdbBtn
+  color="deep-orange"
+  class="waves-light p-2"
+  mdbWavesEffect
+  (click)="filter()"
+>
+  Применить
+</button>

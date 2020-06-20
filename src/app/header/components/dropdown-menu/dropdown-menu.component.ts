@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CatalogService} from '../../../services/catalog.service';
-import {Router} from '@angular/router';
-import {AppRoutes} from '../../../services/router.service';
+import { Component, OnInit } from '@angular/core';
+import { CatalogService } from '../../../services/catalog.service';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../../../services/router.service';
 
 enum CATALOG {
   cpu = 'cpu',
@@ -24,11 +24,9 @@ export class DropdownMenuComponent implements OnInit {
   public CATALOG: any = CATALOG;
   public currentCatalog: string;
 
-  constructor(private router: Router, private catalogService: CatalogService) {
-  }
+  constructor(private router: Router, private catalogService: CatalogService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public goTo(catalog: CATALOG) {
     this.router.navigateByUrl(AppRoutes[catalog]).then(() => {

@@ -18,20 +18,27 @@
     </div>
   </div>
   <div class="ml-4 mt-auto mb-auto d-flex-column">
-    <a [routerLink]="['../', order.type]" title="К каталогу..." class="border-bottom">
+    <a
+      [routerLink]="['../', order.type]"
+      title="К каталогу..."
+      class="border-bottom"
+    >
       {{ order?.type | productType }}
     </a>
-    <a class="font-weight-bold order-name" [routerLink]="['../', order.type, order.key]">
+    <a
+      class="font-weight-bold order-name"
+      [routerLink]="['../', order.type, order.key]"
+    >
       {{ product?.name }}
     </a>
-    <div class="green-text">На складе: {{product?.count}}</div>
+    <div class="green-text">На складе: {{ product?.count }}</div>
   </div>
   <div class="d-flex-column ml-auto check-section p-1 grey lighten-3">
     <div class="font-weight-bold price price-full">
-      {{ (product?.price * orderCount.value) | price }}
+      {{ product?.price * orderCount.value | price }}
     </div>
     <div *ngIf="orderCount.value > 1" class="price-one">
-      {{ product?.price | price}}/шт.
+      {{ product?.price | price }}/шт.
     </div>
     <input
       type="number"

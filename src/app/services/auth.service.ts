@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreDocument
@@ -31,7 +31,7 @@ export class AuthService {
     this.user = angularFireAuth.user;
     this.user.subscribe((user) => {
       this.uid = user.uid;
-    })
+    });
   }
 
   setUserData(user) {

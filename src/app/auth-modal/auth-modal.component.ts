@@ -83,7 +83,10 @@ export class AuthModalComponent implements OnInit {
         if (result.user.emailVerified) {
           this.modalRef.hide();
         } else {
-          this.showAlert(ALERT_TYPES.info, 'Адрес электронной почты не подтвержден.');
+          this.showAlert(
+            ALERT_TYPES.info,
+            'Адрес электронной почты не подтвержден.'
+          );
           this.loginFormModalPassword.reset();
         }
       })
@@ -126,7 +129,10 @@ export class AuthModalComponent implements OnInit {
           );
         })
         .catch(() => {
-          this.showAlert(ALERT_TYPES.danger, 'Ошибка. Пользователь уже зарегистрирован.');
+          this.showAlert(
+            ALERT_TYPES.danger,
+            'Ошибка. Пользователь уже зарегистрирован.'
+          );
           this.loginFormModalRepeatPassword.reset();
           this.loginFormModalPassword.reset();
         })

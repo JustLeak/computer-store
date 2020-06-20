@@ -9,9 +9,6 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-import {DataSnapshot} from '@angular/fire/database/interfaces';
-import { forEach } from 'lodash';
 
 @Component({
   selector: 'app-shopping-cart',

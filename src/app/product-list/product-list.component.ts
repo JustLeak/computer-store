@@ -66,10 +66,11 @@ export class ProductListComponent implements OnDestroy {
     let snapshotValue = snapshot.val();
 
     if (snapshotValue) {
-      forEach(
-        Object.keys(snapshotValue),
-        (key) => (result[result.push(snapshotValue[key]) - 1].$key = key)
-      );
+      forEach(Object.keys(snapshotValue), (key) => {
+        const objKey = result.push(snapshotValue[key]) - 1;
+        result[objKey].$key = key;
+        result[objKey].isShown = true;
+      });
     }
 
     return result;

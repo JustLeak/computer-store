@@ -1,14 +1,9 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Subscription } from 'rxjs';
 import { RouterService } from '../services/router.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ISection } from './specs-table/specs-table.component';
 import specsConfig from './specs-table/specs.config';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -37,7 +32,8 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     private routerService: RouterService,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +59,34 @@ export class ProductPageComponent implements OnInit, OnDestroy {
         this.product = snapshot.val();
         this.initSpecsTable();
       });
+    this.router.events.subscribe(() => {
+      if (this.imagesSubscription) {
+        this.imagesSubscription.unsubscribe();
+      }
+      this.isLoading = true;
+      this.imageUrls = [];
+      this.postfix = this.routerService.getPostfix();
+      this.productKey = this.route.snapshot.params['key'];
+      this.imagesSubscription = this.afStorage
+        .ref(`${this.postfix}/${this.productKey}`)
+        .listAll()
+        .subscribe((value) => {
+          value.items.forEach((img) =>
+            img.getDownloadURL().then((url) => {
+              this.imageUrls.push(url);
+              this.isLoading = false;
+              this.cdr.markForCheck();
+            })
+          );
+        });
+      this.db.database
+        .ref(`categories/${this.postfix}/products/${this.productKey}`)
+        .once('value')
+        .then((snapshot) => {
+          this.product = snapshot.val();
+          this.initSpecsTable();
+        });
+    });
   }
 
   private initSpecsTable() {

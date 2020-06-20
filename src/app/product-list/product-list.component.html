@@ -7,14 +7,17 @@
     </div>
     <div class="col-md-10 d-flex-column">
       <div class="row pt-4 pl-3 pr-3">
-        <div *ngFor="let product of products" class="col-md-3 px-1">
-          <app-product-card [product]="product" (needAuth)="openAuthModal()"></app-product-card>
-        </div>
+        <ng-container *ngFor="let product of products">
+          <app-product-card
+            class="col-md-3 px-1"
+            *ngIf="product.isShown"
+            [product]="product"
+            (needAuth)="openAuthModal()"
+          ></app-product-card>
+        </ng-container>
       </div>
       <div class="row justify-content-between mt-auto border-top">
-        <div class="col-md-3 my-auto">
-          Результатов: {{products?.length}}
-        </div>
+        <div class="col-md-3 my-auto">Результатов: {{ products?.length }}</div>
         <div class="col-md-3">
           <nav>
             <ul class="pagination justify-content-end mb-0">

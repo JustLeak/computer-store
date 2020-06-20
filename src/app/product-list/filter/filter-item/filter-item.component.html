@@ -15,15 +15,15 @@
   <div class="d-flex-row">
     <input
       mdbInput
-      type="text"
       class="form-control form-control-sm no-br-r"
       placeholder="{{ filterItem.range.min }}"
+      [(ngModel)]="filterItem.range.minValue"
     />
     <input
       mdbInput
-      type="text"
       class="form-control form-control-sm no-br-l"
       placeholder="{{ filterItem.range.max }}"
+      [(ngModel)]="filterItem.range.maxValue"
     />
   </div>
 </div>

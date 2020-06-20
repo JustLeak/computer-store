@@ -1,2 +1,12 @@
-<input type="text" class="form-control" placeholder="Поиск" aria-label="Search" #search>
+<input
+  id="typeahead-basic"
+  type="text"
+  class="form-control"
+  [(ngModel)]="model"
+  [ngbTypeahead]="search"
+  [inputFormatter]="formatter"
+  [resultFormatter]="formatter"
+  [editable]="false"
+  (selectItem)="onSelect($event)"
+/>
 <span class="fas fa-search"></span>

@@ -16,7 +16,6 @@
             type="button"
             class="nav-link waves-dark"
             title="Профиль"
-            (click)="onProfileClick()"
             mdbWavesEffect
           >
             <mdb-icon fas icon="user" size="lg"></mdb-icon>
@@ -27,9 +26,7 @@
           <a
             class="nav-link waves-dark"
             type="button"
-            (click)="
-              ordersCount ? onShoppingCartClick() : null
-            "
+            (click)="ordersCount ? onShoppingCartClick() : null"
             [attr.mdbWavesEffect]="!!ordersCount"
             placement="bottom"
             triggers="mouseenter:mouseleave"

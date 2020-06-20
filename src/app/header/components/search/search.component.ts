@@ -1,7 +1,11 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
-import {fromEvent} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
-import {ajax} from 'rxjs/ajax';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -9,25 +13,33 @@ import {ajax} from 'rxjs/ajax';
   styleUrls: ['./search.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent implements OnInit, AfterViewInit {
-  @ViewChild('search') searchRef;
-  private stream$: any;
+export class SearchComponent {
+  public model: string;
+  public data = [
+    { name: 'Intel Core i7 9700K', key: '-M785unOIk-96s2YOsx-' },
+    { name: 'AMD Ryzen 5 1600', key: '-M784MhB3jdZgpOrGH7n' },
+    { name: 'AMD Ryzen 5 3600', key: '-M6uedHxjavoi6gyt2SO' },
+    { name: 'Intel Core i5 9600K', key: '-M6uedI1FBk53_-1wNCn' }
+  ];
 
-  constructor() {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  public formatter = (data: any) => data.name;
 
-  ngAfterViewInit(): void {
-    this.stream$ = fromEvent<any>(this.searchRef.nativeElement, 'input')
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(1000),
-        distinctUntilChanged(),
-        switchMap(value => ajax.getJSON(''))
-      );
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      map((term) =>
+        this.data
+          .filter((state) => new RegExp(term, 'mi').test(state.name))
+          .slice(0, 10)
+      )
+    );
 
-    this.stream$.subscribe(value => {
-      console.log(value);
-    })
+  public onSelect($event): void {
+    this.router.navigateByUrl(`cpu/${$event.item.key}`).then(() => {
+      this.cdr.detectChanges();
+    });
   }
 }

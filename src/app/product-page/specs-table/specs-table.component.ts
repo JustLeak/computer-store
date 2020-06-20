@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit
+} from '@angular/core';
 
 interface IRow {
   name: string;
@@ -21,11 +27,9 @@ export interface ISection {
 export class SpecsTableComponent implements OnInit, OnChanges {
   @Input() table: ISection[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ngOnChanges() {
-  }
+  ngOnChanges() {}
 }
